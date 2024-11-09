@@ -1,0 +1,40 @@
+% Gender Facts
+male(john).
+male(paul).
+male(mike).
+male(rokan).
+female(mary).
+female(lisa).
+female(susan).
+female(anna).
+% Parent Facts
+parent(john, mary).
+parent(john, paul).
+parent(mary, susan).
+parent(mary, mike).
+parent(paul, rokan).
+parent(susan, anna).
+% Rules
+% Sibling relationship
+sibling(X, Y) :-
+ parent(Z, X),
+ parent(Z, Y),
+ X \= Y.
+% Grandparent relationship
+grandparent(X, Y) :-
+ parent(X, Z),
+ parent(Z, Y).
+% Aunt or Uncle relationship
+aunt_or_uncle(X, Y) :-
+ sibling(X, Z),
+ parent(Z, Y).
+% Cousin relationship
+cousin(X, Y) :-
+ parent(Z, X),
+ parent(W, Y),
+ sibling(Z, W).
+% Ancestor relationship
+ancestor(X, Y) :- parent(X, Y).
+ancestor(X, Y) :-
+ parent(X, Z),
+ ancestor(Z, Y).
